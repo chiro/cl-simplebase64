@@ -1,14 +1,6 @@
 (in-package :cl-simplebase64)
 
-;;;encode
-(defun encode (str)
-  (padding-4char
-   (bits-list2string
-    (mapcar
-     (lambda (x) (padding x 6 0 t))
-     (divide-bits (string2bits str) 6)))))
-
-;;;環境依存
+;;環境依存
 (defun string2octets (str)
   #+sbcl (sb-ext:string-to-octets str)
   #+clisp (ext:convert-string-to-bytes)
@@ -26,3 +18,10 @@
 
 (defun bits-list2string (bv)
   (conc-seq-list string (loop for x in bv collect (string (bits2string x)))))
+
+(defun encode (str)
+  (padding-4char
+   (bits-list2string
+    (mapcar
+     (lambda (x) (padding x 6 0 t))
+     (divide-bits (string2bits str) 6)))))

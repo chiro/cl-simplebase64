@@ -2,7 +2,7 @@
 (in-package :b64-system)
 
 (defsystem :cl-simplebase64
-    :description "cl-simplebase64: a simple base64 utilities on lisp"
+    :description "cl-simplebase64: simple utilities of Base64 encoding on lisp"
     :version "0.2"
     :author "h_chiro <peanut2626@gmail.com>"
     :licence "NYSL"

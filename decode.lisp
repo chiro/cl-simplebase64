@@ -12,9 +12,6 @@
    (map 'vector #'bits2integer
 	(remove-if #'(lambda (x) (< (length x) 8)) lst)) 'octets))
 
-(defun make-bits (vec)
-  (conc-seq-list vector vec))
-
 (defun encoded-string2int (str)
     (map 'vector #'(lambda (x) (padding (make-bits (encoded-char2int x)) 6 0))
 	 (remove #\= str)))
@@ -22,5 +19,5 @@
 (defun decode (str)
   (octets2string
    (make-octets
-    (divide-bits (make-bits (encoded-string2int str)) 8))))
+    (divide-bits (conc-seq-list vector (encoded-string2int str)) 8))))
 

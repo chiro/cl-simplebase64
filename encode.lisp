@@ -11,7 +11,7 @@
 
 (defun string2bits (str)
   (conc-seq-list vector (loop for x across (string2octets str)
-			   collect (padding (make-bits x) 8 0))))
+			   collect (base64::padding (base64::make-bits x) 8 0))))
 
 (defun bits2string (bits)
   (elt *base64-alphabet* (bits2integer bits)))

@@ -3,7 +3,7 @@
 
 (defsystem :cl-simplebase64
     :description "cl-simplebase64: simple utilities of Base64 encoding on lisp"
-    :version "0.2"
+    :version "0.3"
     :author "h_chiro <peanut2626@gmail.com>"
     :licence "Public Domain"
     :components ((:file "package")

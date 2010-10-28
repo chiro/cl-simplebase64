@@ -19,9 +19,16 @@
 (defun bits-list2string (bv)
   (conc-seq-list string (loop for x in bv collect (string (bits2string x)))))
 
-(defun encode (str)
+(defgeneric encode (input))
+
+(defmethod encode ((str string))
   (padding-4char
    (bits-list2string
     (mapcar
      (lambda (x) (padding x 6 0 t))
      (divide-bits (string2bits str) 6)))))
+
+(defmethod encode ((stm stream))
+  (cond ((not (open-stream-p stm)) (error "stream is not opened"))
+	((not (input-stream-p stm)) (error "stream cannot provide input"))
+	(t (encode (read-line stm)))))

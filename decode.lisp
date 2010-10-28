@@ -16,8 +16,14 @@
     (map 'vector #'(lambda (x) (padding (make-bits (encoded-char2int x)) 6 0 nil 'bit))
 	 (remove #\= str)))
 
-(defun decode (str)
+(defgeneric decode (input))
+
+(defmethod decode ((str string))
   (octets2string
    (make-octets
     (divide-bits (conc-seq-list vector (encoded-string2int str)) 8))))
 
+(defmethod decode ((stm stream))
+  (cond ((not (open-stream-p stm)) (error "stream is not opened"))
+	((not (input-stream-p stm)) (error "stream cannot provide input"))
+	(t (decode (read-line stm)))))

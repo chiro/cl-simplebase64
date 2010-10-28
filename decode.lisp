@@ -13,7 +13,7 @@
 	(remove-if #'(lambda (x) (< (length x) 8)) lst)) 'octets))
 
 (defun encoded-string2int (str)
-    (map 'vector #'(lambda (x) (padding (make-bits (encoded-char2int x)) 6 0))
+    (map 'vector #'(lambda (x) (padding (make-bits (encoded-char2int x)) 6 0 nil 'bit))
 	 (remove #\= str)))
 
 (defun decode (str)

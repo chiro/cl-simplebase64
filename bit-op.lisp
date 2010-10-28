@@ -1,24 +1,26 @@
 (in-package :cl-simplebase64)
 
-(defgeneric padding (seq len pad &optional rev))
+(defgeneric padding (seq len pad &optional rev eltype))
 
 (defmacro defpadding (type)
-  `(defmethod padding ((vec ,type) len pad &optional rev)
+  `(defmethod padding ((vec ,type) len pad &optional rev (eltype t))
      (cond ((>= (length vec) len) vec)
 	   (rev (concatenate ',type
 			     vec
 			     (make-array (- len (length vec))
-					 :initial-element pad)))
+					 :initial-element pad
+					 :element-type eltype)))
 	   (t (concatenate ',type
 			   (make-array (- len (length vec))
-				       :initial-element pad)
+				       :initial-element pad
+				       :element-type eltype)
 			   vec)))))
 
 (defpadding string)
 (defpadding vector)
 
 (defun make-bits (integer)
-  (let ((acc (make-array 0 :fill-pointer 0 :adjustable t)))
+  (let ((acc (make-array 0 :fill-pointer 0 :adjustable t :element-type 'bit)))
     (do ((var integer (floor (/ var 2))))
 	((<= var 1)
 	 (progn (vector-push-extend (rem var 2) acc)

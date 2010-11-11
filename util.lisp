@@ -24,3 +24,6 @@
 		  do (when (not (vector= (elt vecl1 x) (elt vecl2 x)))
 		       (return-from vector-list= nil)))
 	     t)))
+
+(defun stream2list (stream)
+  (loop for str = (read-line stream nil 'eof) until (eql str 'eof) collect str))

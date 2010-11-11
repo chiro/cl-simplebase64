@@ -31,8 +31,8 @@
   (reduce (lambda (x y) (+ (* x 2) y)) vec))
 
 (defun divide-bits (vec block-size)
-  (cond ((<= block-size 0) '());(error "zero length error")
-	((= (length vec) 0) '(#())); vec = #()
+  (cond ((<= block-size 0) '())  ; (error "zero length error")
+	((= (length vec) 0) '(#()))  ; vec = #()
 	(t (loop for idx from 0 below (length vec) by block-size
 	      collect (if (>= (+ idx block-size) (length vec))
 			  (subseq vec idx)

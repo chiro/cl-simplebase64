@@ -26,4 +26,5 @@
 (defmethod decode ((stm stream))
   (cond ((not (open-stream-p stm)) (error "stream is not opened"))
 	((not (input-stream-p stm)) (error "stream cannot provide input"))
-	(t (decode (read-line stm)))))
+	(t (mapcar #'decode (base64::stream2list stm)))))
+

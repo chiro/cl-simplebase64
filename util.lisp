@@ -4,6 +4,10 @@
   (lambda (&rest rest-args)
     (apply fn (append args rest-args))))
 
+(defun curry-l (fn &rest args)
+  (lambda (&rest rest-args)
+    (apply fn (append rest-args args))))
+
 (defmacro conc-seq-list (type data)
   `(reduce (curry #'concatenate ',type) ,data))
 

@@ -13,22 +13,26 @@
   (conc-seq-list vector (loop for x across (string2octets str)
 			   collect (base64::padding (base64::make-bits x) 8 0))))
 
-(defun bits2string (bits)
-  (elt *base64-alphabet* (bits2integer bits)))
+(defun bits2string (bits &optional (safep nil))
+  (if safep
+      (elt base64::*base64-alphabet-url-and-filename-safe* (bits2integer bits))
+      (elt base64::*base64-alphabet* (bits2integer bits))))
 
-(defun bits-list2string (bv)
-  (conc-seq-list string (loop for x in bv collect (string (bits2string x)))))
+(defun bits-list2string (bv &optional safe-p)
+  (conc-seq-list string (loop for x in bv collect (string (bits2string x safe-p)))))
 
-(defgeneric encode (input))
+;(defgeneric encode (input &optional url-and-filename-safe-p)
 
-(defmethod encode ((str string))
+(defmethod encode ((str string) &optional url-and-filename-safe-p)
   (padding-4char
    (bits-list2string
     (mapcar
      (lambda (x) (padding x 6 0 t))
-     (divide-bits (string2bits str) 6)))))
+     (divide-bits (string2bits str) 6))
+    url-and-filename-safe-p)))
 
-(defmethod encode ((stm stream))
-  (cond ((not (open-stream-p stm)) (error "stream is not opened"))
-	((not (input-stream-p stm)) (error "stream cannot provide input"))
-	(t (mapcar #'encode (base64::stream2list stm)))))
+(defmethod encode ((stm stream) &optional url-and-filename-safe-p)
+    (cond ((not (open-stream-p stm)) (error "stream is not opened"))
+          ((not (input-stream-p stm)) (error "stream cannot provide input"))
+          (t (mapcar (curry-l #'encode url-and-filename-safe-p)
+                     (base64::stream2list stm)))))

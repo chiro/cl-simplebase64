@@ -21,7 +21,7 @@
 (defun bits-list2string (bv &optional safe-p)
   (conc-seq-list string (loop for x in bv collect (string (bits2string x safe-p)))))
 
-;(defgeneric encode (input &optional url-and-filename-safe-p)
+(defgeneric encode (input &optional url-and-filename-safe-p))
 
 (defmethod encode ((str string) &optional url-and-filename-safe-p)
   (padding-4char

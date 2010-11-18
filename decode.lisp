@@ -18,7 +18,7 @@
     (map 'vector #'(lambda (x) (padding (make-bits (encoded-char2int x safe-p)) 6 0 nil 'bit))
 	 (remove #\= str)))
 
-;(defgeneric decode (input) &optional url-and-filename-safe-p)
+(defgeneric decode (input &optional url-and-filename-safe-p))
 
 (defmethod decode ((str string) &optional url-and-filename-safe-p)
   (octets2string

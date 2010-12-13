@@ -30,4 +30,6 @@
 	     t)))
 
 (defun stream2list (stream)
-  (loop for str = (read-line stream nil 'eof) until (eql str 'eof) collect str))
+  (loop for str = (read-line stream nil 'eof)
+     until (eql str 'eof)
+     collect str))

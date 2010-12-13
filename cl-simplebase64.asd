@@ -5,11 +5,11 @@
     :description "cl-simplebase64: simple utilities of Base64 encoding on lisp"
     :version "0.3"
     :author "h_chiro <peanut2626@gmail.com>"
-    :licence "Public Domain"
+    :licence "NYSL"
     :components ((:file "package")
 		 (:file "util" :depends-on ("package"))
 		 (:file "variables" :depends-on ("package"))
 		 (:file "bit-op" :depends-on ("util" "variables"))
 		 (:file "encode" :depends-on ("bit-op"))
-		 (:file "decode" :depends-on ("bit-op"))
-		 (:file "test" :depends-on ("encode" "decode"))))
+		 (:file "decode" :depends-on ("bit-op")))
+    )

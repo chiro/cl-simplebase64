@@ -5,5 +5,7 @@
   (:nicknames #:base64)
   (:export
    #:encode
-   #:decode))
+   #:decode
+   #:vector=
+   #:vector-list=))
 

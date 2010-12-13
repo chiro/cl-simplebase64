@@ -29,8 +29,8 @@
 
 (defmethod decode ((stm stream) &optional url-and-filename-safe-p)
   (cond ((not (open-stream-p stm)) (error "stream is not opened"))
-	((not (input-stream-p stm)) (error "stream cannot provide input"))
+	((not (input-stream-p stm)) (error "stream don't provide input"))
 	(t (mapcar
-        (base64::curry-l #'decode url-and-filename-safe-p)
-        (base64::stream2list stm)))))
+        (curry-l #'decode url-and-filename-safe-p)
+        (stream2list stm)))))
 

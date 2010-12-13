@@ -1,4 +1,3 @@
-;;;;This file contains variables in common
 
 (in-package :cl-simplebase64)
 

@@ -16,8 +16,9 @@
 				       :element-type eltype)
 			   vec)))))
 
-(defpadding string)
-(defpadding vector)
+(eval-when (:compile-toplevel :load-toplevel :execute)
+  (defpadding string)
+  (defpadding vector))
 
 (defun make-bits (integer)
   (let ((acc (make-array 0 :fill-pointer 0 :adjustable t :element-type 'bit)))
